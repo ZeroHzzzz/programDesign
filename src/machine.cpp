@@ -63,7 +63,7 @@ void MachineMap::saveToFile() {
     out.close();
     std::cout << "保存成功！" << std::endl;
 }
-void MachineMap::display() {
+void MachineMap::displayMap() {
     for (const auto& pair : machineStatus) {
         std::cout << pair.first << ":" << pair.second << std::endl;
     }

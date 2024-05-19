@@ -4,7 +4,6 @@
 #include <regex>
 #include <utility>
 #include "../include/machine.h"
-
 // 这个函数可以不放到类的实现中
 int parseTimeToMinutes(const std::string& timeStr) {
     int hours, minutes;
@@ -74,7 +73,7 @@ void Info::setTotalTime() {
 }
 
 void Info::calculateCost(const int& totalTime) {
-    Info::cost = (totalTime / 60.0) * 1.0;
+    Info::cost = (totalTime / 60) * 1;
 }
 
 std::istream& operator>>(std::istream& in, Info& right) {
@@ -111,9 +110,19 @@ std::ostream& operator<<(std::ostream& out, const Info& right) {
     // out << std::left << std::setw(10) << "学号" << "姓名" << "班级"
     //     << "机器编号" << "上机开始时间" << "上机结束时间" << "上机时长"
     //     << "费用" << std::endl;
-    out << right.getNum() << " " << right.getName() << " "
-        << right.getClassName() << " " << right.getMachineNum() << " "
-        << right.getBeginTime() << " " << right.getEndTime() << " "
-        << right.getTotalTime() << " " << right.getCost();
+    if (typeid(out) == typeid(std::cout)) {
+        out << std::setfill(' ') << std::setw(10) << right.getNum()
+            << std::setw(10) << right.getName() << std::setw(10)
+            << right.getClassName() << std::setw(10) << right.getMachineNum()
+            << std::setw(10) << right.getBeginTime() << std::setw(10)
+            << right.getEndTime() << std::setw(10) << right.getTotalTime()
+            << std::setw(10) << right.getCost();
+    } else {
+        out << right.getNum() << " " << right.getName() << " "
+            << right.getClassName() << " " << right.getMachineNum() << " "
+            << right.getBeginTime() << " " << right.getEndTime() << " "
+            << right.getTotalTime() << " " << right.getCost();
+    }
+
     return out;
 }

@@ -15,7 +15,7 @@ class MachineMap {
     void updateMachineStatus(Info&, Info&);
     // 保存到文件
     void saveToFile();
-    void display();
+    void displayMap();
 
    private:
     std::map<std::string, std::string>

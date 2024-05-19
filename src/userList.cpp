@@ -262,10 +262,13 @@ void UserList::sortNode() {
               << "2: 姓名" << std::endl
               << "3: 班级" << std::endl
               << "4: 上机时长" << std::endl
+              << "0: 返回上级菜单" << std::endl
               << "<";
     int type;
     std::cin >> type;
     switch (type) {
+        case 0:
+            return;
         case 1: {
             sort([](const ListNode<Info>& left,
                     const ListNode<Info>& right) -> bool {
