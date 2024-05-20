@@ -1,4 +1,5 @@
 #include "../include/student.h"
+#include <cmath>
 #include <iomanip>
 #include <iostream>
 #include <regex>
@@ -73,7 +74,7 @@ void Info::setTotalTime() {
 }
 
 void Info::calculateCost(const int& totalTime) {
-    Info::cost = (totalTime / 60) * 1;
+    Info::cost = std::ceil(totalTime / 60.0) * 1;
 }
 
 std::istream& operator>>(std::istream& in, Info& right) {
@@ -94,7 +95,7 @@ std::istream& operator>>(std::istream& in, Info& right) {
                 std::cout << "该机器已被占用，请重新选择：";
             }
         }
-        std::regex timePattern(R"(^\d{2}:\d{2}$)");
+        std::regex timePattern(R"(^([01][0-9]|2[0-3]):[0-5][0-9]$)");
 
         std::string begintime;
         std::cout << "请输入上机开始时间:";
@@ -103,7 +104,7 @@ std::istream& operator>>(std::istream& in, Info& right) {
                 right.setBeginTime(begintime);
                 break;
             } else {
-                std::cout << "时间格式不正确，应为 HH:MM:";
+                std::cout << "时间格式不正确，应为 HH:MM:(英文冒号)";
             }
         }
     } else {

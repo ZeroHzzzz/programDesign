@@ -7,6 +7,7 @@
 #include <regex>
 #include <utility>
 #include "../include/machine.h"
+#include "../include/student.h"
 // 空对象
 
 ListNode<Info>* UserList::fetchNode(const std::string& context,
@@ -100,10 +101,15 @@ void UserList::changeNode_info(std::string context) {
         std::string temp;
         std::cout << "请输入上机结束时间:";
         while (std::cin >> temp) {
-            std::regex timePattern(R"(^\d{2}:\d{2}$)");
+            std::regex timePattern(R"(^([01][0-9]|2[0-3]):[0-5][0-9]$)");
             if (std::regex_match(temp, timePattern)) {
-                user->getData().setEndTime(temp);
-                break;
+                if (parseTimeToMinutes(user->getData().getBeginTime()) >
+                    parseTimeToMinutes(temp)) {
+                    std::cout << "结束时间不能早于开始时间！请重新输入：";
+                } else {
+                    user->getData().setEndTime(temp);
+                    break;
+                }
             } else {
                 std::cout << "时间格式不正确，应为 HH:MM :";
             }

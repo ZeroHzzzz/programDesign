@@ -3,6 +3,8 @@
 
 #include <ctime>
 #include <string>
+int parseTimeToMinutes(const std::string&);
+int getMinuteDifference(const std::string&, const std::string&);
 
 class Info {
    public:
