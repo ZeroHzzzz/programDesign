@@ -132,6 +132,10 @@ int main() {
                                             char choice = 'n';
                                             while (std::cin >> choice) {
                                                 if (choice == 'y') {
+                                                    mp.changeMachineStatus(
+                                                        user->getData()
+                                                            .getMachineNum(),
+                                                        "FREE");
                                                     list.delNode(num, "num");
                                                     file.change(list);
                                                     break;
@@ -164,6 +168,10 @@ int main() {
                                             char choice = 'n';
                                             while (std::cin >> choice) {
                                                 if (choice == 'y') {
+                                                    mp.changeMachineStatus(
+                                                        user->getData()
+                                                            .getMachineNum(),
+                                                        "FREE");
                                                     list.delNode(name, "name");
                                                     file.change(list);
                                                     break;

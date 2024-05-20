@@ -50,6 +50,7 @@ void MachineMap::updateMachineStatus(Info& former, Info& latter) {
     machineStatus[latter.getMachineNum()] = latter.getNum();
     saveToFile();
 }
+
 // 保存到文件
 void MachineMap::saveToFile() {
     std::ofstream out;
