@@ -85,8 +85,15 @@ std::istream& operator>>(std::istream& in, Info& right) {
         std::cout << "请输入班级：";
         in >> right.className;
         std::cout << "请输入机器号码：";
-        in >> right.machineNum;
-
+        std::string machineNum;
+        while (in >> machineNum) {
+            if (mp.isMachineFree(machineNum) == true) {
+                right.setMachineNum(machineNum);
+                break;
+            } else {
+                std::cout << "该机器已被占用，请重新选择：";
+            }
+        }
         std::regex timePattern(R"(^\d{2}:\d{2}$)");
 
         std::string begintime;
@@ -111,12 +118,14 @@ std::ostream& operator<<(std::ostream& out, const Info& right) {
     //     << "机器编号" << "上机开始时间" << "上机结束时间" << "上机时长"
     //     << "费用" << std::endl;
     if (typeid(out) == typeid(std::cout)) {
-        out << std::setfill(' ') << std::setw(15) << right.getNum()
-            << std::setw(10) << right.getName() << std::setw(10)
-            << right.getClassName() << std::setw(15) << right.getMachineNum()
-            << std::setw(10) << right.getBeginTime() << std::setw(10)
-            << right.getEndTime() << std::setw(10) << right.getTotalTime()
-            << std::setw(15) << right.getCost();
+        out << std::setfill(' ') << "|" << std::setw(15) << right.getNum()
+            << "|" << std::setw(10) << right.getName() << "|" << std::setw(10)
+            << right.getClassName() << "|" << std::setw(15)
+            << right.getMachineNum() << "|" << std::setw(10)
+            << right.getBeginTime() << "|" << std::setw(10)
+            << right.getEndTime() << "|" << std::setw(10)
+            << right.getTotalTime() << "|" << std::setw(15) << right.getCost()
+            << "|";
     } else {
         out << right.getNum() << " " << right.getName() << " "
             << right.getClassName() << " " << right.getMachineNum() << " "

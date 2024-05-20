@@ -65,9 +65,10 @@ void Menu::displayDeleteMenu() {
 // }
 
 void displayHeader() {
-    std::cout << std::left << std::setfill(' ') << std::setw(15) << "Num."
-              << std::setw(10) << "Name" << std::setw(10) << "Class"
-              << std::setw(15) << "MachineNum" << std::setw(10) << "BeginTime"
-              << std::setw(10) << "EndTime" << std::setw(10) << "Length"
-              << std::setw(15) << "Cost /yuan" << std::endl;
+    std::cout << std::left << std::setfill(' ') << "|" << std::setw(15)
+              << "Num." << "|" << std::setw(10) << "Name" << "|"
+              << std::setw(10) << "Class" << "|" << std::setw(15)
+              << "MachineNum" << "|" << std::setw(10) << "BeginTime" << "|"
+              << std::setw(10) << "EndTime" << "|" << std::setw(10) << "Length"
+              << "|" << std::setw(15) << "Cost /yuan" << "|" << std::endl;
 }

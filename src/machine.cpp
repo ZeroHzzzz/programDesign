@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 // 更新机器使用状态
+MachineMap mp("../data/machines", ".txt");
 
 MachineMap::MachineMap(const std::string path, const std::string fileType) {
     MachineMap::path = path;
@@ -57,7 +58,7 @@ void MachineMap::saveToFile() {
         std::cout << "machines.txt打开失败" << std::endl;
         return;
     }
-    for (const auto& pair : machineStatus) {
+    for (const auto& pair : mp.machineStatus) {
         out << pair.first << ":" << pair.second << std::endl;
     }
     out.close();
@@ -68,4 +69,10 @@ void MachineMap::displayMap() {
         std::cout << pair.first << ":" << pair.second << std::endl;
     }
 }
-MachineMap mp("../data/machines", ".txt");
+bool MachineMap::isMachineFree(const std::string& machineNumber) {
+    auto it = machineStatus.find(machineNumber);
+    if (it != machineStatus.end() && it->second == "FREE") {
+        return true;
+    }
+    return false;
+}

@@ -9,18 +9,26 @@ int main() {
     File file("../data/data", ".txt");
     file.init(list);
     mp.init();
-    bool flagMain = true;
     int userChoice = 0;
+    bool flagMain = true;
     menu.displayMainMenu();
     while (flagMain && std::cin >> userChoice && userChoice) {
         switch (userChoice) {
+            case 0: {
+                flagMain = false;
+                break;
+            }
+            // 维护学生信息
             case 1: {
                 bool flagMain_ = true;
                 menu.displayMaintainMenu();
                 int typeNum = 0;
-                // 维护学生信息
                 while (flagMain_ && std::cin >> typeNum && typeNum) {
                     switch (typeNum) {
+                        case 0: {
+                            flagMain_ = false;
+                            break;
+                        }
                         // 添加上机信息
                         case 1: {
                             std::cout << std::setw(20) << std::setfill('-')
@@ -39,10 +47,11 @@ int main() {
                             file.change(list);
                             break;
                         }
+                        // 修改学生上机信息
                         case 3: {
                             if (!list.getSize()) {
                                 std::cout << std::setw(20) << std::setfill('-')
-                                          << std::endl;
+                                          << "-" << std::endl;
                                 std::cout << "当前链表为空" << std::endl;
                                 break;
                             }
@@ -51,9 +60,13 @@ int main() {
                             bool flag = true;
                             while (flag && std::cin >> typeNum_ && typeNum_) {
                                 switch (typeNum_) {
+                                    case 0: {
+                                        flag = false;
+                                        break;
+                                    }
                                     case 1: {
                                         std::cout << std::setw(20)
-                                                  << std::setfill('-')
+                                                  << std::setfill('-') << "-"
                                                   << std::endl;
                                         std::cout << "请输入想修改学生的学号：";
                                         std::string num;
@@ -65,7 +78,7 @@ int main() {
                                     }
                                     case 2: {
                                         std::cout << std::setw(20)
-                                                  << std::setfill('-')
+                                                  << std::setfill('-') << "-"
                                                   << std::endl;
                                         std::cout << "请输入想修改用户的姓名：";
                                         std::string name;
@@ -76,17 +89,20 @@ int main() {
                                         break;
                                     }
                                     default: {
-                                        std::cout << "输入有误，请重新输入\n>";
+                                        std::cout << "输入有误，请重新输入\n";
                                         break;
                                     }
                                 }
+                                if (typeNum_)
+                                    menu.displayChangeMenu();
                             }
                             break;
                         }
+                        // 删除学生上机信息
                         case 4: {
                             if (!list.getSize()) {
                                 std::cout << std::setw(20) << std::setfill('-')
-                                          << std::endl;
+                                          << "-" << std::endl;
                                 std::cout << "当前链表为空" << std::endl;
                                 break;
                             }
@@ -95,37 +111,86 @@ int main() {
                             bool flag = true;
                             while (flag && std::cin >> typeNum_ && typeNum_) {
                                 switch (typeNum_) {
+                                    case 0: {
+                                        flag = false;
+                                        break;
+                                    }
                                     case 1: {
                                         std::cout << std::setw(20)
-                                                  << std::setfill('-')
+                                                  << std::setfill('-') << "-"
                                                   << std::endl;
+                                        list.display();
                                         std::cout << "请输入想删除用户的学号：";
                                         std::string num;
                                         std::cin >> num;
-                                        list.delNode(num, "num");
-                                        file.change(list);
-                                        flag = false;
+                                        // list.fetchNode()
+                                        auto user = list.fetchNode(num, "num");
+                                        if (user) {
+                                            displayHeader();
+                                            std::cout << *user;
+                                            std::cout << "确认删除?(y/n):";
+                                            char choice = 'n';
+                                            while (std::cin >> choice) {
+                                                if (choice == 'y') {
+                                                    list.delNode(num, "num");
+                                                    file.change(list);
+                                                    break;
+                                                } else if (choice == 'n') {
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        } else {
+                                            std::cout << "该用户不存在"
+                                                      << std::endl;
+                                            break;
+                                        }
                                         break;
                                     }
                                     case 2: {
                                         std::cout << std::setw(20)
-                                                  << std::setfill('-')
+                                                  << std::setfill('-') << "-"
                                                   << std::endl;
+                                        list.display();
                                         std::cout << "请输入想删除用户的姓名：";
                                         std::string name;
                                         std::cin >> name;
-                                        list.delNode(name, "name");
-                                        file.change(list);
-                                        flag = false;
+                                        auto user =
+                                            list.fetchNode(name, "name");
+                                        if (user) {
+                                            displayHeader();
+                                            std::cout << *user;
+                                            std::cout << "确认删除?(y/n):";
+                                            char choice = 'n';
+                                            while (std::cin >> choice) {
+                                                if (choice == 'y') {
+                                                    list.delNode(name, "name");
+                                                    file.change(list);
+                                                    break;
+                                                } else if (choice == 'n') {
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        } else {
+                                            std::cout << "该用户不存在"
+                                                      << std::endl;
+                                            break;
+                                        }
                                         break;
                                     }
                                     default: {
-                                        std::cout << "输入有误，请重新输入\n>";
+                                        std::cout << "输入有误，请重新输入\n";
                                         break;
                                     }
                                 }
+                                if (typeNum_)
+                                    menu.displayDeleteMenu();
                             }
                             break;
+                        }
+                        default: {
+                            std::cout << "输入有误，请重新输入\n";
                         }
                     }
                     if (typeNum)
@@ -133,8 +198,8 @@ int main() {
                 }
                 break;
             }
+            // 查询学生信息
             case 2: {
-                // 查询学生信息
                 if (!list.getSize()) {
                     std::cout << "当前链表为空" << std::endl;
                     break;
@@ -144,6 +209,10 @@ int main() {
                 bool flag = true;
                 while (flag && std::cin >> typeNum_ && typeNum_) {
                     switch (typeNum_) {
+                        case 0: {
+                            flag = false;
+                            break;
+                        }
                         case 1: {
                             std::cout << "请输入想查询用户的学号：";
                             std::string num;
@@ -154,7 +223,6 @@ int main() {
                             } else {
                                 std::cout << "该用户不存在" << std::endl;
                             }
-                            flag = false;
                             break;
                         }
                         case 2: {
@@ -171,19 +239,23 @@ int main() {
                             break;
                         }
                         default: {
-                            std::cout << "输入有误，请重新输入\n>";
+                            std::cout << "输入有误，请重新输入\n";
                             break;
                         }
                     }
+                    if (typeNum_)
+                        menu.displayFetchMenu();
                 }
                 break;
             }
+            // 展示学生信息
             case 3: {
                 std::cout << std::setw(20) << std::setfill('-') << "-"
                           << std::endl;
                 list.display();
                 break;
             }
+            // 排序学生信息
             case 4: {
                 std::cout << std::setw(20) << std::setfill('-') << "-"
                           << std::endl;
@@ -191,11 +263,11 @@ int main() {
                     std::cout << "当前链表为空" << std::endl;
                     break;
                 }
-                list.sortNode();  // Ensure this function actually sorts the
-                                  // nodes.
+                list.sortNode();
                 file.change(list);
                 break;
             }
+            // 显示机器使用情况
             case 5: {
                 std::cout << std::setw(20) << std::setfill('-') << "-"
                           << std::endl;
@@ -203,6 +275,7 @@ int main() {
                 break;
             }
             default:
+                std::cout << "输入有误，请重新输入\n";
                 break;
         }
         if (userChoice)

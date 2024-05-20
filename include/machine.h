@@ -13,6 +13,7 @@ class MachineMap {
     void init();
     void changeMachineStatus(std::string, std::string);
     void updateMachineStatus(Info&, Info&);
+    bool isMachineFree(const std::string&);
     // 保存到文件
     void saveToFile();
     void displayMap();

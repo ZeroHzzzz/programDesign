@@ -5,8 +5,8 @@
 #include "../include/file_manager.h"
 #include <sstream>
 #include "../include/machine.h"
+#include "../include/menu.h"
 #include "../include/userList.h"
-
 File::File(const std::string path, const std::string fileType) {
     File::path = path;
     File::fileType = fileType;
@@ -42,11 +42,12 @@ void File::add(Info& user) {
         std::cout << "data.tct文件打开失败" << std::endl;
         return;
     }
-    out << user;
+    out << user << std::endl;
     out.close();
     mp.changeMachineStatus(user.getMachineNum(), user.getNum());
-    std::cout << "信息添加成功" << std::endl;
-    std::cout << user;
+    std::cout << "信息添加成功:" << std::endl;
+    displayHeader();
+    std::cout << user << std::endl;
 }
 
 void File::change(UserList& userList) {
