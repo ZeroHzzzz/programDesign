@@ -13,4 +13,6 @@ class Menu {
 
     void displayDeleteMenu();
 };
+
+void displayHeader();
 #endif  // PROJECT_ABS_MENU_H

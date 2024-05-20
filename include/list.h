@@ -7,6 +7,7 @@
 #define PROJECT_ABS_LIST_H
 #include <iomanip>
 #include "listNode.h"
+#include "menu.h"
 template <typename T>
 class List {
    public:
@@ -146,11 +147,7 @@ int List<T>::getSize() {
 template <typename T>
 void List<T>::display() {
     // 输出链表内所有元素
-    std::cout << std::setfill(' ') << std::setw(10) << "学号" << std::setw(10)
-              << "姓名" << std::setw(10) << "班级" << std::setw(10)
-              << "机器编号" << std::setw(10) << "上机开始时间" << std::setw(10)
-              << "上机结束时间" << std::setw(10) << "上机时长" << std::setw(10)
-              << "费用 /元" << std::endl;
+    displayHeader();
     ListNode<T>* ptr = head;
     while (ptr) {
         std::cout << *ptr;

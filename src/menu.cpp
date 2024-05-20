@@ -52,3 +52,22 @@ void Menu::displayDeleteMenu() {
               << "0: 返回上级菜单" << std::endl;
     std::cout << ">";
 }
+
+// void displayHeader() {
+//     std::cout << std::setfill(' ') << std::setw(10) << "学号" <<
+//     std::setw(10)
+//               << "姓名" << std::setw(10) << "班级" << std::setw(10)
+//               << "机器编号" << std::setw(10) << "上机开始时间" <<
+//               std::setw(10)
+//               << "上机结束时间" << std::setw(10) << "上机时长" <<
+//               std::setw(10)
+//               << "费用 /元" << std::endl;
+// }
+
+void displayHeader() {
+    std::cout << std::left << std::setfill(' ') << std::setw(15) << "Num."
+              << std::setw(10) << "Name" << std::setw(10) << "Class"
+              << std::setw(15) << "MachineNum" << std::setw(10) << "BeginTime"
+              << std::setw(10) << "EndTime" << std::setw(10) << "Length"
+              << std::setw(15) << "Cost /yuan" << std::endl;
+}

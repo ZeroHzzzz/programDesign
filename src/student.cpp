@@ -111,12 +111,12 @@ std::ostream& operator<<(std::ostream& out, const Info& right) {
     //     << "机器编号" << "上机开始时间" << "上机结束时间" << "上机时长"
     //     << "费用" << std::endl;
     if (typeid(out) == typeid(std::cout)) {
-        out << std::setfill(' ') << std::setw(10) << right.getNum()
+        out << std::setfill(' ') << std::setw(15) << right.getNum()
             << std::setw(10) << right.getName() << std::setw(10)
-            << right.getClassName() << std::setw(10) << right.getMachineNum()
+            << right.getClassName() << std::setw(15) << right.getMachineNum()
             << std::setw(10) << right.getBeginTime() << std::setw(10)
             << right.getEndTime() << std::setw(10) << right.getTotalTime()
-            << std::setw(10) << right.getCost();
+            << std::setw(15) << right.getCost();
     } else {
         out << right.getNum() << " " << right.getName() << " "
             << right.getClassName() << " " << right.getMachineNum() << " "
